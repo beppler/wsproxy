@@ -40,7 +40,7 @@ func TestLoadServerDefaults(t *testing.T) {
 func TestLoadServerFull(t *testing.T) {
 	path := writeTemp(t, `
 listen: localhost:23450
-key: ${GOTUNNEL_TEST_KEY}
+key: ${WSPROXY_TEST_KEY}
 allow:
   - "*.internal.example:22"
   - "db.local:*"
@@ -48,7 +48,7 @@ dial_timeout: 3s
 idle_timeout: 1m
 max_concurrent: 5
 `)
-	t.Setenv("GOTUNNEL_TEST_KEY", "s3cret")
+	t.Setenv("WSPROXY_TEST_KEY", "s3cret")
 	cfg, err := LoadServer(path)
 	if err != nil {
 		t.Fatalf("load: %v", err)

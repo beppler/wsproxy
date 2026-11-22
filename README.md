@@ -1,4 +1,4 @@
-# gotunnel
+# wsproxy
 
 A minimal [wstunnel](https://github.com/erebe/wstunnel)-like tool in Go.
 It tunnels TCP connections over WebSockets and is designed to sit behind
@@ -29,7 +29,7 @@ no multiplexing, no re-encoding. A tunnel is a transparent byte pipe.
 ## Build
 
 ```shell
-go build -o gotunnel ./cmd/gotunnel
+go build -o wsproxy ./cmd/wsproxy
 ```
 
 ## Server
@@ -62,7 +62,7 @@ and rely on the shared key for access control.
 Run it (it must sit behind a reverse proxy, which connects over TCP):
 
 ```shell
-gotunnel server --config server.yaml
+wsproxy server --config server.yaml
 ```
 
 ### Caddy
@@ -76,12 +76,12 @@ tunnel.example.com {
 ## Client
 
 The client accepts only `wss://` URLs. The security key can be passed
-with `--key` or the `GOTUNNEL_KEY` environment variable.
+with `--key` or the `WSPROXY_KEY` environment variable.
 
 ### HTTP proxy mode
 
 ```shell
-gotunnel client \
+wsproxy client \
     --url wss://tunnel.example.com/ws \
     --key change-me-long-random \
     --mode http \
@@ -98,7 +98,7 @@ curl -x http://127.0.0.1:3128 http://ifconfig.me    # via absolute-URI
 ### ssh ProxyCommand mode
 
 ```shell
-gotunnel client \
+wsproxy client \
     --url wss://tunnel.example.com/ws \
     --key change-me-long-random \
     --mode ssh \
@@ -109,17 +109,17 @@ Configure ssh:
 
 ```text
 Host bastion
-    ProxyCommand gotunnel client --url wss://tunnel.example.com/ws --mode ssh --host 10.0.0.5:22 --key %k
+    ProxyCommand wsproxy client --url wss://tunnel.example.com/ws --mode ssh --host 10.0.0.5:22 --key %k
 ```
 
-(In practice keep the key in `GOTUNNEL_KEY` rather than `%k` so it does
+(In practice keep the key in `WSPROXY_KEY` rather than `%k` so it does
 not appear in `ps` output.)
 
 ## Protocol
 
 After the upgrade, the client sends a single binary message — a JSON
 object carrying the tunnel destination, a unix timestamp and an
-HMAC-SHA256 signature of the `gotunnel-handshake-v1:` prefix followed
+HMAC-SHA256 signature of the `wsproxy-handshake-v1:` prefix followed
 by the canonical `host:port` address and the timestamp, keyed by the
 shared key:
 

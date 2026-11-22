@@ -14,7 +14,7 @@ import (
 	"fmt"
 	"time"
 
-	"go.beppler.dev.br/gotunnel/internal/dest"
+	"go.beppler.dev.br/wsproxy/internal/dest"
 )
 
 // Version is the protocol version of the handshake message; the
@@ -28,7 +28,7 @@ const maxSkew = 60 * time.Second
 
 // macDomain separates the handshake MAC from any other HMAC use of
 // the shared key and binds the protocol version into the signature.
-const macDomain = "gotunnel-handshake-v1:"
+const macDomain = "wsproxy-handshake-v1:"
 
 // Message is the single post-upgrade handshake message. The signature
 // covers the canonical "host:port" address and the unix timestamp;

@@ -16,9 +16,9 @@ import (
 
 	"github.com/coder/websocket"
 
-	"go.beppler.dev.br/gotunnel/internal/dest"
-	"go.beppler.dev.br/gotunnel/internal/handshake"
-	"go.beppler.dev.br/gotunnel/internal/tunnel"
+	"go.beppler.dev.br/wsproxy/internal/dest"
+	"go.beppler.dev.br/wsproxy/internal/handshake"
+	"go.beppler.dev.br/wsproxy/internal/tunnel"
 )
 
 const testKey = "secret"
@@ -79,7 +79,7 @@ func trustTestCert(t *testing.T, ts *httptest.Server) {
 	t.Cleanup(func() { http.DefaultTransport = old })
 }
 
-// newFakeTunnel starts an httptest TLS server speaking the gotunnel
+// newFakeTunnel starts an httptest TLS server speaking the wsproxy
 // protocol: after the upgrade, it reads the single handshake message,
 // verifies its HMAC signature under key (a missing, wrong or
 // malformed message gets the same rejection as the real server's) and

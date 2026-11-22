@@ -1,4 +1,4 @@
-// Package config loads the gotunnel server's single YAML
+// Package config loads the wsproxy server's single YAML
 // configuration.
 package config
 
@@ -31,7 +31,7 @@ func (d *Duration) UnmarshalYAML(node *yaml.Node) error {
 	return nil
 }
 
-// ServerConfig is the single configuration of a gotunnel server
+// ServerConfig is the single configuration of a wsproxy server
 // instance.
 type ServerConfig struct {
 	// Listen is the TCP address (host:port) the server listens on.

@@ -1,4 +1,4 @@
-module go.beppler.dev.br/gotunnel
+module go.beppler.dev.br/wsproxy
 
 go 1.27.4
 
