@@ -15,10 +15,10 @@ import (
 
 	"github.com/coder/websocket"
 
-	"go.beppler.dev.br/gotunnel/internal/tunnel"
+	"go.beppler.dev.br/wsproxy/internal/tunnel"
 )
 
-// responderTunnelHandler implements a gotunnel server whose upstream
+// responderTunnelHandler implements a wsproxy server whose upstream
 // is an HTTP origin: it acks the tunnel, captures the forwarded
 // request (head plus optional body), replies with a canned response
 // and closes the tunnel.

@@ -13,17 +13,17 @@ import (
 
 	"github.com/coder/websocket"
 
-	"go.beppler.dev.br/gotunnel/internal/dest"
-	"go.beppler.dev.br/gotunnel/internal/tunnel"
+	"go.beppler.dev.br/wsproxy/internal/dest"
+	"go.beppler.dev.br/wsproxy/internal/tunnel"
 )
 
 const defaultBufferedBody = 10 << 20 // 10 MiB
 
 // HTTPProxy is a local HTTP proxy that forwards CONNECT and
-// absolute-URI requests through the gotunnel server. Each proxied
+// absolute-URI requests through the wsproxy server. Each proxied
 // connection gets its own tunnel (one WebSocket per connection).
 type HTTPProxy struct {
-	// URL is the gotunnel server endpoint (wss://).
+	// URL is the wsproxy server endpoint (wss://).
 	URL string
 	// Key is the shared secret.
 	Key string
@@ -56,9 +56,9 @@ func (p *HTTPProxy) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	case r.Method == http.MethodConnect:
 		p.serveConnect(w, r)
 	case r.URL.Host == "":
-		http.Error(w, "gotunnel proxy: send CONNECT or an absolute-URI request", http.StatusBadRequest)
+		http.Error(w, "wsproxy proxy: send CONNECT or an absolute-URI request", http.StatusBadRequest)
 	case r.URL.Scheme == "https":
-		http.Error(w, "gotunnel proxy: use CONNECT for https destinations", http.StatusBadRequest)
+		http.Error(w, "wsproxy proxy: use CONNECT for https destinations", http.StatusBadRequest)
 	default:
 		p.serveForward(w, r)
 	}

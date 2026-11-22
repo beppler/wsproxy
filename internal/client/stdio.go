@@ -8,7 +8,7 @@ import (
 
 	"github.com/coder/websocket"
 
-	"go.beppler.dev.br/gotunnel/internal/tunnel"
+	"go.beppler.dev.br/wsproxy/internal/tunnel"
 )
 
 // stdioTarget bridges a process's stdin/stdout to the tunnel for ssh
@@ -25,7 +25,7 @@ func (s *stdioTarget) Close() error                { return nil }
 // RunStdio connects to the server and bridges stdin/stdout, for use as
 // an ssh ProxyCommand:
 //
-//	ssh -o ProxyCommand='gotunnel client --mode ssh ...' user@host
+//	ssh -o ProxyCommand='wsproxy client --mode ssh ...' user@host
 func RunStdio(ctx context.Context, o Options) error {
 	conn, err := Dial(ctx, o)
 	if err != nil {

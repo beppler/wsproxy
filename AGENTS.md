@@ -4,7 +4,7 @@ Guidance for AI coding agents working in this repository.
 
 ## Project overview
 
-`gotunnel` is a minimal wstunnel-like tool in Go: it tunnels TCP
+`wsproxy` is a minimal wstunnel-like tool in Go: it tunnels TCP
 connections over WebSockets and is designed to sit behind a reverse
 proxy (Caddy/Nginx) that terminates TLS. One binary, two subcommands
 (`server`, `client`). See `README.md` for usage and GitHub issue #1
@@ -21,7 +21,7 @@ prefix. In this sandbox Go is pre-installed at `/usr/local/go/bin/go`
 (may not be on `PATH`).
 
     /usr/local/go/bin/go build ./...
-    /usr/local/go/bin/go build -o gotunnel ./cmd/gotunnel
+    /usr/local/go/bin/go build -o wsproxy ./cmd/wsproxy
     /usr/local/go/bin/go test ./...
     /usr/local/go/bin/go vet ./...
     /usr/local/go/bin/gofmt -l .   # must print nothing before committing
@@ -32,7 +32,7 @@ No linters or code generators are configured; stdlib + two deps only
 
 ## Layout
 
-- `cmd/gotunnel/main.go` — subcommand dispatch and flags only. Keep
+- `cmd/wsproxy/main.go` — subcommand dispatch and flags only. Keep
   business logic out of here.
 - `internal/config/` — server YAML config loading, validation,
   `${ENV}` expansion.
@@ -64,9 +64,9 @@ README:
 - **Auth + destination in one signed message.** The client sends a
   **single** JSON message right after the upgrade:
   `{"v":1,"host":...,"port":...,"ts":...,"sig":...}` where `sig` is
-  `hex(HMAC-SHA256(key, "gotunnel-handshake-v1:host:port:ts"))`
+  `hex(HMAC-SHA256(key, "wsproxy-handshake-v1:host:port:ts"))`
   (`internal/handshake`); `ts` is unix seconds. The version is bound
-  into the MAC via the `gotunnel-handshake-v1:` domain prefix. The
+  into the MAC via the `wsproxy-handshake-v1:` domain prefix. The
   server rejects timestamps more than one minute away from its clock
   (either direction), so a captured handshake is only replayable for
   ~1 minute. The key itself is **never** transmitted; the server

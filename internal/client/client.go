@@ -10,8 +10,8 @@ import (
 
 	"github.com/coder/websocket"
 
-	"go.beppler.dev.br/gotunnel/internal/handshake"
-	"go.beppler.dev.br/gotunnel/internal/tunnel"
+	"go.beppler.dev.br/wsproxy/internal/handshake"
+	"go.beppler.dev.br/wsproxy/internal/tunnel"
 )
 
 const (

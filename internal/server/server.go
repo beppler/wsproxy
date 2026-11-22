@@ -14,10 +14,10 @@ import (
 
 	"github.com/coder/websocket"
 
-	"go.beppler.dev.br/gotunnel/internal/config"
-	"go.beppler.dev.br/gotunnel/internal/dest"
-	"go.beppler.dev.br/gotunnel/internal/handshake"
-	"go.beppler.dev.br/gotunnel/internal/tunnel"
+	"go.beppler.dev.br/wsproxy/internal/config"
+	"go.beppler.dev.br/wsproxy/internal/dest"
+	"go.beppler.dev.br/wsproxy/internal/handshake"
+	"go.beppler.dev.br/wsproxy/internal/tunnel"
 )
 
 const (
@@ -37,7 +37,7 @@ const (
 // from the outside.
 var errUnauthorized = errors.New("unauthorized")
 
-// Server is a gotunnel server: it authenticates WebSocket clients,
+// Server is a wsproxy server: it authenticates WebSocket clients,
 // enforces the destination allowlist and relays each tunnel (one
 // WebSocket per connection) to its destination.
 type Server struct {
