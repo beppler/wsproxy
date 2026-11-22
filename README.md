@@ -66,6 +66,8 @@ Run it (it must sit behind a reverse proxy, which connects over TCP):
 wsproxy server --config server.yaml
 ```
 
+Print the build version with `wsproxy version` (also `--version`).
+
 ### Caddy
 
 ```text

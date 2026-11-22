@@ -95,7 +95,8 @@ README:
 - Errors are wrapped with `fmt.Errorf("...: %w", err)`; package-specific
   prefixes like `config:` / `server:` are fine.
 - CLI output goes to stderr; stdout is reserved for payload data
-  (stdio mode tunnels stdout — never log to it).
+  (stdio mode tunnels stdout — never log to it). The one exception is
+  `wsproxy version`, which prints to stdout so scripts can capture it.
 - Server config is a single YAML file per instance; durations are
   strings parsed via `config.Duration` ("30s", "1m").
 

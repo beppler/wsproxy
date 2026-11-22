@@ -15,10 +15,12 @@ import (
 	"errors"
 	"flag"
 	"fmt"
+	"io"
 	"net"
 	"net/http"
 	"os"
 	"os/signal"
+	"runtime/debug"
 	"syscall"
 	"time"
 
@@ -40,6 +42,8 @@ func main() {
 		os.Exit(runServer(os.Args[2:]))
 	case "client":
 		os.Exit(runClient(os.Args[2:]))
+	case "version", "-v", "--version":
+		printVersion(os.Stdout)
 	case "help", "-h", "--help":
 		usage()
 	default:
@@ -49,10 +53,20 @@ func main() {
 	}
 }
 
+func printVersion(w io.Writer) {
+	bi, ok := debug.ReadBuildInfo()
+	if !ok {
+		fmt.Fprintln(w, "wsproxy (unknown)")
+		return
+	}
+	fmt.Fprintf(w, "wsproxy %s\n", bi.Main.Version)
+}
+
 func usage() {
 	fmt.Fprint(os.Stderr, `wsproxy - minimal WebSocket TCP tunnel
 
 Usage:
+  wsproxy version
   wsproxy server --config <server.yaml>
   wsproxy client --url <wss://host/ws> --key <key> --mode http --listen <addr>
   wsproxy client --url <wss://host/ws> --key <key> --mode ssh --host <host:port>
