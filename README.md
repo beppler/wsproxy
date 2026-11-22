@@ -1,6 +1,7 @@
 # wsproxy
 
-A minimal [wstunnel](https://github.com/erebe/wstunnel)-like tool in Go.
+A HTTP and SSH proxy using WebSockets transport ([wstunnel](https://github.com/erebe/wstunnel)-like) in Go.
+
 It tunnels TCP connections over WebSockets and is designed to sit behind
 a reverse proxy (Caddy, Nginx, ...) that terminates TLS. The server
 listens on a local TCP address (loopback by default), it never speaks
@@ -149,7 +150,6 @@ HTTP proxy answers `502 <reason>`; ssh ProxyCommand prints it on
 stderr). The handshake therefore includes the upstream dial:
 `--connect-timeout` (default 30s) must exceed the server's
 `dial_timeout` (default 10s).
-
 
 ## Notes and limits
 
