@@ -29,7 +29,11 @@ $(foreach p,$(PLATFORMS),$(eval $(call platform-rule,$(word 1,$(subst /, ,$(p)))
 
 # Always invoke go build; Go's build cache makes no-op rebuilds cheap and
 # tracks source dependencies better than make could.
-.PHONY: cross-build clean $(TARGETS)
+.PHONY: test cross-build clean $(TARGETS)
+
+test:
+	go vet ./...
+	go test -v ./...
 
 cross-build: $(TARGETS)
 
